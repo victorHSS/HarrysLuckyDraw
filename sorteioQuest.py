@@ -6,13 +6,35 @@ import os
 import time
 import sys
 
-def printHarryNum(harry,num):
-	harry = harry.split("\n")
-	num = num.split("\n")
-	for l in range(len(harry)):
-		print(harry[l], " "*5,num[l] if l < len(num) else "")
-	
+#
+# cria um gerador que retorna cada digito de num
+# baseado num tamanho lenq, completando os digitos
+# mais à esquerda com zeros
+#
+def genNumLen(num, lenq):
+	nstr = f"{num:0{lenq}d}"
+	for sn in nstr:
+		yield int(sn)
 
+#
+# faz o trabalho de printar o harry e o número lado
+# a lado, pegando linha por linha de cada um e printando
+#
+def printHarryNum(harry, numeros, num, lenq):
+	harry = harry.split("\n")
+	
+	numlst = []
+	for numi in genNumLen(num,lenq):
+		numlst.append(numeros[numi].split("\n"))
+	
+	numlst2 = tuple(zip(*numlst))
+	
+	for l in range(len(harry)):
+		print(harry[l], " "*5,"".join(numlst2[l]) if l < len(numlst[0]) else "")
+	
+#
+# função auxiliar que mostra o uso do script
+#
 def usage():
 	print(f"Usage:\n{sys.argv[0]} <num_questões>")
 	sys.exit(0)
@@ -27,10 +49,7 @@ def main():
 	
 	try:
 		MAXQ = int(sys.argv[1])
-		if MAXQ > 31:
-			print("Versão atual suporta até 31.")
-			print("Aguarde versão futura.")
-			sys.exit(1)
+		LENQ = len(sys.argv[1])
 	except ValueError:
 		print("Argumento precisa ser um número")
 		sys.exit(1)
@@ -47,7 +66,7 @@ def main():
 			os.system("clear")
 			for i in range(30):
 				os.system("clear")
-				printHarryNum(harry,numeros[random.randint(0,MAXQ-1)])
+				printHarryNum( harry, numeros, random.randint(1, MAXQ), LENQ )
 				time.sleep(0.05)
 	except KeyboardInterrupt:
 		print("\n\nAté a próxima!!!")
