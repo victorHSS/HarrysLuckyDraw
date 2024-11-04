@@ -1,8 +1,8 @@
 # Um sorter baseado em Harry Potter
 
 Como usar:
-```python
-sorteioQuest.py numDeQuestoes
+```sh
+./sorteioQuest.py numDeQuestoes
 ```
 
 Rodando...
