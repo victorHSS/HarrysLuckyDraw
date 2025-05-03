@@ -54,10 +54,10 @@ def main():
 		print("Argumento precisa ser um número")
 		sys.exit(1)
 	
-	with open("sorteioQuest.rsc","r") as f:
+	with open("sorteioQuest.nms","r") as f:
 		numeros = f.read().split("\n\n");
 	
-	with open("harry.rsc","r") as f:
+	with open("harry.bgd","r") as f:
 		harry = f.read();
 	
 	try:
